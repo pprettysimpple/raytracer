@@ -1,4 +1,2 @@
 # raytracer
-Full Rust written `no_std` `cpu` raytracer
-
-Have fun!!!
+#### Rust `no_std` `cpu` raytracer
