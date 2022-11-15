@@ -1,0 +1,19 @@
+[package]
+name = "raytracer"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib/mod.rs"
+
+[[example]]
+name = "parallel_render"
+path = "src/example/parallel_render.rs"
+
+[dependencies]
+libm = "0.2.6"
+
+[dev-dependencies]
+image = "0.24.4"
+rayon = "1.5.3"
+show-image = "0.13.1"
