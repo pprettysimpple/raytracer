@@ -28,11 +28,6 @@ impl Vec3 {
         self.mul(self.norm().recip())
     }
 
-    pub fn dist(&self, rhs: &Vec3) -> f32 {
-        let diff = *self - *rhs;
-        diff.norm()
-    }
-
     pub fn dist_observer(&self, rhs: &Vec3) -> f32 {
         let diff = *self - *rhs;
         dot_product(&diff, &diff)

@@ -8,3 +8,4 @@ pub mod material;
 pub mod render;
 pub mod utils;
 pub mod vec3;
+pub mod ray;

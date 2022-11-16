@@ -1,5 +1,6 @@
 use crate::utils::OrderedFloat32;
 use crate::vec3::Vec3;
+use crate::ray::Ray;
 use core::ops::Index;
 
 #[derive(Debug, Clone, Copy)]
@@ -78,23 +79,18 @@ impl BoundingBox {
         }
     }
 
-    pub fn ray_check_intersect_standard(&self, from: &Vec3, dir: &Vec3) -> bool {
-        let dir_inv = Vec3::new(dir.x.recip(), dir.y.recip(), dir.z.recip());
-        let sign_x = (dir.x < 0.0) as usize;
-        let sign_y = (dir.y < 0.0) as usize;
-        let sign_z = (dir.z < 0.0) as usize;
+    pub fn ray_check_intersect_standard(&self, ray: Ray) -> bool {
+        let mut ray_min = (self[ray.sign_x].x - ray.from.x) * ray.inv_dir.x;
+        let mut ray_max = (self[1 - ray.sign_x].x - ray.from.x) * ray.inv_dir.x;
 
-        let mut ray_min = (self[sign_x].x - from.x) * dir_inv.x;
-        let mut ray_max = (self[1 - sign_x].x - from.x) * dir_inv.x;
-
-        let y_min = (self[sign_y].y - from.y) * dir_inv.y;
-        let y_max = (self[1 - sign_y].y - from.y) * dir_inv.y;
+        let y_min = (self[ray.sign_y].y - ray.from.y) * ray.inv_dir.y;
+        let y_max = (self[1 - ray.sign_y].y - ray.from.y) * ray.inv_dir.y;
 
         ray_min = max(ray_min, y_min);
         ray_max = min(ray_max, y_max);
 
-        let z_min = (self[sign_z].z - from.z) * dir_inv.z;
-        let z_max = (self[1 - sign_z].z - from.z) * dir_inv.z;
+        let z_min = (self[ray.sign_z].z - ray.from.z) * ray.inv_dir.z;
+        let z_max = (self[1 - ray.sign_z].z - ray.from.z) * ray.inv_dir.z;
 
         ray_min = max(ray_min, z_min);
         ray_max = min(ray_max, z_max);
