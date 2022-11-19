@@ -4,16 +4,17 @@ use crate::material::Material;
 use crate::utils::OrderedFloat32;
 use crate::vec3::Vec3;
 use alloc::boxed::Box;
+use alloc::vec::Vec;
 use crate::ray::Ray;
 use crate::render::RenderState;
 
 #[derive(Debug, Clone)]
 pub struct Scene {
-    pub entities: Box<[Entity]>,
+    pub entities: Vec<Entity>,
 }
 
 impl Scene {
-    pub fn new(entities: Box<[Entity]>) -> Scene {
+    pub fn new(entities: Vec<Entity>) -> Scene {
         Scene { entities }
     }
 }

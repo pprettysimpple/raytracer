@@ -204,8 +204,7 @@ fn main() {
             .map(Entity::Model)
             .chain(spheres.into_iter().map(Entity::Sphere))
             .chain(planes.into_iter().map(Entity::Plane))
-            .collect::<Vec<Entity>>()
-            .into_boxed_slice(),
+            .collect::<Vec<Entity>>(),
     );
 
     println!("State:");
